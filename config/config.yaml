@@ -1,0 +1,11 @@
+# Configuration for Database
+connections:
+  user: falabella
+  pass: Falab3lla.2017
+  base: aaa.cl
+  get: aaa.cl
+  update: aaa.cl
+
+selectors:
+  mercadolibre:
+    price: span.price-tag:not(.price-tag__del) > span.price-tag-fraction
