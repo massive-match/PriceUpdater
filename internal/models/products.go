@@ -3,6 +3,8 @@ package models
 import (
 	"github.com/gocolly/colly"
 	"github.com/nicolasvasquez/workerPrice/internal/utils"
+	"net/http"
+	"encoding/json"
 )
 
 type Products struct {
@@ -19,4 +21,18 @@ func (product *Products) Crawl() {
 	})
 
 	c.Visit(product.Url)
+}
+
+func GetProducts() ([]Products, error) {
+	var products []Products
+
+	if r, err := http.Get(utils.Config.Connections.Base + utils.Config.Connections.Get); err != nil {
+		return products, err
+	} else {
+		if err := json.NewDecoder(r.Body).Decode(&products); err != nil {
+			return products, err
+		} else {
+			return products, nil
+		}
+	}
 }
